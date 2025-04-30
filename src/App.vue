@@ -7,11 +7,20 @@
           <div class="logo">
             <img src="@/assets/logo.svg" alt="რენოვიტა" class="logo-img" />
           </div>
-          <div class="nav-links">
-            <a href="#about" class="nav-link">ჩვენ შესახებ</a>
-            <a href="#services" class="nav-link">სერვისები</a>
-            <a href="#specialists" class="nav-link">სპეციალისტები</a>
-            <a href="#contact" class="nav-link">კონტაქტი</a>
+
+          <!-- ბურგერის ღილაკი მობილურისთვის -->
+          <div class="burger-menu" @click="toggleMenu">
+            <div class="burger-line" :class="{ 'active': isMenuOpen }"></div>
+            <div class="burger-line" :class="{ 'active': isMenuOpen }"></div>
+            <div class="burger-line" :class="{ 'active': isMenuOpen }"></div>
+          </div>
+
+          <!-- ნავიგაციის ლინკები -->
+          <div class="nav-links" :class="{ 'active': isMenuOpen }">
+            <a href="#about" class="nav-link" @click="closeMenu">ჩვენ შესახებ</a>
+            <a href="#services" class="nav-link" @click="closeMenu">სერვისები</a>
+            <a href="#specialists" class="nav-link" @click="closeMenu">სპეციალისტები</a>
+            <a href="#contact" class="nav-link" @click="closeMenu">კონტაქტი</a>
           </div>
         </div>
       </div>
@@ -51,52 +60,18 @@
       <div class="container">
         <h2 class="section-title">ჩვენი სერვისები</h2>
         <div class="services-grid">
-          <div class="service-card">
+          <div
+              v-for="service in services"
+              :key="service.id"
+              class="service-card"
+              @click="openServicePopup(service)"
+          >
             <div class="service-icon">
-              <icon-physical-therapy />
+              <component :is="`icon-${service.type}`" />
             </div>
-            <h3 class="service-title">ფიზიოთერაპია</h3>
-            <p class="service-text">სხვადასხვა დაავადებების და დაზიანებების მკურნალობა ფიზიკური თერაპიის მეთოდებით</p>
-          </div>
-
-          <div class="service-card">
-            <div class="service-icon">
-              <icon-rehabilitation />
-            </div>
-            <h3 class="service-title">რეაბილიტაცია</h3>
-            <p class="service-text">პოსტ-ტრავმული და პოსტ-ოპერაციული რეაბილიტაცია ინდივიდუალური პროგრამებით</p>
-          </div>
-
-          <div class="service-card">
-            <div class="service-icon">
-              <icon-massage />
-            </div>
-            <h3 class="service-title">სამკურნალო მასაჟი</h3>
-            <p class="service-text">სამკურნალო და გამაჯანსაღებელი მასაჟის სხვადასხვა ტექნიკები</p>
-          </div>
-
-          <div class="service-card">
-            <div class="service-icon">
-              <icon-exercise />
-            </div>
-            <h3 class="service-title">სამკურნალო ვარჯიში</h3>
-            <p class="service-text">ინდივიდუალურად შერჩეული სამკურნალო ვარჯიშები სხვადასხვა პრობლემებისთვის</p>
-          </div>
-
-          <div class="service-card">
-            <div class="service-icon">
-              <icon-electrotherapy />
-            </div>
-            <h3 class="service-title">ელექტროთერაპია</h3>
-            <p class="service-text">თანამედროვე ელექტროთერაპიული პროცედურები ტკივილის შემცირებისა და აღდგენისთვის</p>
-          </div>
-
-          <div class="service-card">
-            <div class="service-icon">
-              <icon-consultation />
-            </div>
-            <h3 class="service-title">კონსულტაცია</h3>
-            <p class="service-text">პროფესიონალი ექიმების კონსულტაცია და ინდივიდუალური სამკურნალო გეგმის შედგენა</p>
+            <h3 class="service-title">{{ service.title }}</h3>
+            <p class="service-text">{{ service.shortDescription }}</p>
+            <button class="read-more-btn">მეტის ნახვა</button>
           </div>
         </div>
       </div>
@@ -168,25 +143,16 @@
             </div>
           </div>
 
-          <div class="contact-form">
-            <form @submit.prevent="submitForm">
-              <div class="form-group">
-                <label for="name">სახელი</label>
-                <input type="text" id="name" v-model="form.name" required>
-              </div>
-
-              <div class="form-group">
-                <label for="phone">ტელეფონი</label>
-                <input type="tel" id="phone" v-model="form.phone" required>
-              </div>
-
-              <div class="form-group">
-                <label for="message">შეტყობინება</label>
-                <textarea id="message" v-model="form.message" rows="4" required></textarea>
-              </div>
-
-              <button type="submit" class="btn-primary">გაგზავნა</button>
-            </form>
+          <div class="map-container">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2977.923542116426!2d44.735578715498766!3d41.73461307923291!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40440d2c1b374163%3A0x8d1f592dafdbe72!2zNjUg4YOo4YOQ4YOa4YOV4YOQIOGDnuGDo-GDquGDo-GDkeGDmOGDq-GDmOGDoeGDkCDhg6Xhg6Phg6nhg5AsIFQnYmlsaXNp!5e0!3m2!1sen!2sge!4v1651424768902!5m2!1sen!2sge"
+                width="100%"
+                height="450"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
           </div>
         </div>
       </div>
@@ -215,11 +181,20 @@
         </div>
       </div>
     </footer>
+
+    <!-- სერვისის პოპაპი -->
+    <ServicePopup
+        :is-open="isPopupOpen"
+        :service="selectedService"
+        @close="closeServicePopup"
+    />
   </div>
 </template>
 
 <script>
 import { ref } from 'vue'
+import { services } from './data/service.js'
+import ServicePopup from './components/ServicePopup.vue'
 import IconPhysicalTherapy from './components/icons/IconPhysicalTherapy.vue'
 import IconRehabilitation from './components/icons/IconRehabilitation.vue'
 import IconMassage from './components/icons/IconMassage.vue'
@@ -235,6 +210,7 @@ import IconInstagram from './components/icons/IconInstagram.vue'
 export default {
   name: 'App',
   components: {
+    ServicePopup,
     IconPhysicalTherapy,
     IconRehabilitation,
     IconMassage,
@@ -254,6 +230,10 @@ export default {
       message: ''
     })
 
+    const isPopupOpen = ref(false)
+    const selectedService = ref(null)
+    const isMenuOpen = ref(false) // ბურგერ მენიუს მდგომარეობა
+
     const submitForm = () => {
       // აქ იქნება ფორმის გაგზავნის ლოგიკა
       console.log('Form submitted:', form.value)
@@ -266,13 +246,50 @@ export default {
       }
     }
 
+    const openServicePopup = (service) => {
+      selectedService.value = service
+      isPopupOpen.value = true
+      // სქროლის დაბლოკვა პოპაპის გახსნისას
+      document.body.style.overflow = 'hidden'
+    }
+
+    const closeServicePopup = () => {
+      isPopupOpen.value = false
+      // სქროლის აღდგენა პოპაპის დახურვისას
+      document.body.style.overflow = 'auto'
+    }
+
+    // ბურგერ მენიუს ფუნქციები
+    const toggleMenu = () => {
+      isMenuOpen.value = !isMenuOpen.value
+      if (isMenuOpen.value) {
+        document.body.style.overflow = 'hidden' // გადასქროლვის გამორთვა მენიუს გახსნისას
+      } else {
+        document.body.style.overflow = 'auto' // გადასქროლვის აღდგენა მენიუს დახურვისას
+      }
+    }
+
+    const closeMenu = () => {
+      isMenuOpen.value = false
+      document.body.style.overflow = 'auto'
+    }
+
     return {
       form,
-      submitForm
+      submitForm,
+      services,
+      isPopupOpen,
+      selectedService,
+      openServicePopup,
+      closeServicePopup,
+      isMenuOpen,
+      toggleMenu,
+      closeMenu
     }
   }
 }
 </script>
+
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Georgian:wght@300;400;500;600;700&display=swap');
@@ -308,6 +325,7 @@ body {
 }
 
 /* ნავიგაცია */
+/* ნავიგაცია */
 .nav {
   background-color: var(--secondary-bg);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -342,6 +360,93 @@ body {
 
 .nav-link:hover {
   color: var(--primary-color);
+}
+
+/* ბურგერ მენიუ */
+.burger-menu {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 22px;
+  cursor: pointer;
+  z-index: 110;
+}
+
+.burger-line {
+  width: 100%;
+  height: 3px;
+  background-color: var(--secondary-color);
+  transition: all 0.3s ease-in-out;
+}
+
+/* ბურგერ მენიუს ანიმაცია */
+.burger-line.active:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.burger-line.active:nth-child(2) {
+  opacity: 0;
+}
+
+.burger-line.active:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* რესპონსიული დიზაინი */
+@media (max-width: 768px) {
+  .nav-content {
+    padding: 15px 0;
+  }
+
+  .burger-menu {
+    display: flex;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--secondary-bg);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 100;
+  }
+
+  .nav-links.active {
+    transform: translateY(0);
+  }
+
+  .nav-link {
+    font-size: 1.3rem;
+  }
+
+  .about-content,
+  .contact-content {
+    grid-template-columns: 1fr;
+  }
+
+  .about-content {
+    flex-direction: column;
+  }
+
+  .specialists-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+  }
 }
 
 /* მთავარი სექცია */
@@ -470,6 +575,8 @@ section {
   padding: 30px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s;
+  cursor: pointer;
+  position: relative;
 }
 
 .service-card:hover {
@@ -487,6 +594,19 @@ section {
   font-size: 1.3rem;
   color: var(--secondary-color);
   margin-bottom: 15px;
+}
+
+.read-more-btn {
+  display: inline-block;
+  margin-top: 15px;
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  font-size: 0.95rem;
+  text-decoration: underline;
 }
 
 /* სპეციალისტები */
@@ -564,26 +684,28 @@ section {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
-.form-group {
-  margin-bottom: 20px;
+.map-container {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
 }
 
-.form-group label {
+.map-container iframe {
   display: block;
-  margin-bottom: 5px;
-  color: var(--secondary-color);
-  font-weight: 500;
 }
 
-.form-group input,
-.form-group textarea {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
-  font-family: inherit;
+/* Updated contact section styling */
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
 }
 
+@media (max-width: 768px) {
+  .contact-content {
+    grid-template-columns: 1fr;
+  }
+}
 /* ფუტერი */
 .footer {
   background-color: var(--secondary-color);
@@ -649,17 +771,18 @@ section {
 /* რესპონსიული დიზაინი */
 @media (max-width: 768px) {
   .nav-content {
-    flex-direction: column;
+    //flex-direction: column;
     padding: 15px 0;
+    align-content: center;
   }
 
   .logo {
-    margin-bottom: 15px;
+    //margin-bottom: 15px;
   }
 
   .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
+    //flex-wrap: wrap;
+    //justify-content: center;
   }
 
   .about-content,
