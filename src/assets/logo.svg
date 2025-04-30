@@ -1,0 +1,9 @@
+<svg width="200" height="80" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+    <!-- ლოგოს ტექსტი -->
+    <text x="10" y="45" font-family="Noto Sans Georgian, sans-serif" font-size="36" fill="#4b7e95">რენოვიტა</text>
+
+    <!-- ყვავილის სიმბოლო -->
+    <g transform="translate(195, 40)">
+        <path d="M 0 0 L 12 -15 A 10 10 0 0 1 15 0 L 0 12 A 10 10 0 0 1 -15 0 L 0 -12 A 10 10 0 0 1 15 0 Z" fill="#d5bc8d" />
+    </g>
+</svg>
