@@ -6,6 +6,7 @@
         <div class="nav-content">
           <div class="logo">
             <img src="@/assets/logo.svg" alt="რენოვიტა" class="logo-img" />
+            <div class="rv-logo">RV</div>
           </div>
 
           <!-- ბურგერის ღილაკი მობილურისთვის -->
@@ -84,18 +85,22 @@
         <div class="specialists-grid">
           <div class="specialist-card">
             <div class="specialist-image">
-              <div class="image-placeholder"></div>
+              <div class="image-placeholder">
+                <img class="image-placeholder" src="@/assets/გვანცა.jpeg" alt="გვანცა ჩუტკერაშვილი" />
+              </div>
             </div>
-            <h3 class="specialist-name">გვანცა კახიძე</h3>
-            <p class="specialist-position">ფიზიოთერაპევტი</p>
+            <h3 class="specialist-name">გვანცა ჩუტკერაშვილი</h3>
+            <p class="specialist-position">რეაბილიტოლოგი</p>
             <p class="specialist-info">+995 551 32 55 52</p>
           </div>
 
           <div class="specialist-card">
             <div class="specialist-image">
-              <div class="image-placeholder"></div>
+              <div class="image-placeholder">
+                <img class="image-placeholder" src="@/assets/ლაშა.jpeg" alt="ლაშა ცარციძე" />
+              </div>
             </div>
-            <h3 class="specialist-name">ლაშა ერქვანიძე</h3>
+            <h3 class="specialist-name">ლაშა ცარციძე</h3>
             <p class="specialist-position">რეაბილიტოლოგი</p>
             <p class="specialist-info">+995 551 52 72 70</p>
           </div>
@@ -144,15 +149,7 @@
           </div>
 
           <div class="map-container">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2977.923542116426!2d44.735578715498766!3d41.73461307923291!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40440d2c1b374163%3A0x8d1f592dafdbe72!2zNjUg4YOo4YOQ4YOa4YOV4YOQIOGDnuGDo-GDquGDo-GDkeGDmOGDq-GDmOGDoeGDkCDhg6Xhg6Phg6nhg5AsIFQnYmlsaXNp!5e0!3m2!1sen!2sge!4v1651424768902!5m2!1sen!2sge"
-                width="100%"
-                height="450"
-                style="border:0;"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2682.94695721911!2d44.74272517569589!3d41.72902287125847!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x404473035bffdbd7%3A0xb86509011ae9f215!2s65%20Shalva%20Nutsubidze%20St%2C%20T&#39;bilisi%200186!5e1!3m2!1sen!2sge!4v1755545287712!5m2!1sen!2sge" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
       </div>
@@ -172,8 +169,8 @@
             <p>Renovita04@gmail.com</p>
           </div>
           <div class="footer-social">
-            <a href="#" class="social-link"><icon-facebook /></a>
-            <a href="#" class="social-link"><icon-instagram /></a>
+            <a href="https://www.facebook.com/profile.php?id=61579193110147&mibextid=wwXIfr&rdid=jHQpRgoFFmtddBHc&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F19CqqJp9BK%2F%3Fmibextid%3DwwXIfr#" target="_blank" class="social-link"><icon-facebook /></a>
+            <a href="https://www.instagram.com/renovita04/?igsh=bDY4NG5qa3V6aTJj&utm_source=qr#" target="_blank" class="social-link"><icon-instagram /></a>
           </div>
         </div>
         <div class="footer-bottom">
@@ -234,38 +231,24 @@ export default {
     const selectedService = ref(null)
     const isMenuOpen = ref(false) // ბურგერ მენიუს მდგომარეობა
 
-    const submitForm = () => {
-      // აქ იქნება ფორმის გაგზავნის ლოგიკა
-      console.log('Form submitted:', form.value)
-      alert('თქვენი შეტყობინება წარმატებით გაიგზავნა!')
-      // ფორმის გასუფთავება
-      form.value = {
-        name: '',
-        phone: '',
-        message: ''
-      }
-    }
 
     const openServicePopup = (service) => {
       selectedService.value = service
       isPopupOpen.value = true
-      // სქროლის დაბლოკვა პოპაპის გახსნისას
       document.body.style.overflow = 'hidden'
     }
 
     const closeServicePopup = () => {
       isPopupOpen.value = false
-      // სქროლის აღდგენა პოპაპის დახურვისას
       document.body.style.overflow = 'auto'
     }
 
-    // ბურგერ მენიუს ფუნქციები
     const toggleMenu = () => {
       isMenuOpen.value = !isMenuOpen.value
       if (isMenuOpen.value) {
-        document.body.style.overflow = 'hidden' // გადასქროლვის გამორთვა მენიუს გახსნისას
+        document.body.style.overflow = 'hidden'
       } else {
-        document.body.style.overflow = 'auto' // გადასქროლვის აღდგენა მენიუს დახურვისას
+        document.body.style.overflow = 'auto'
       }
     }
 
@@ -276,7 +259,6 @@ export default {
 
     return {
       form,
-      submitForm,
       services,
       isPopupOpen,
       selectedService,
@@ -342,8 +324,21 @@ body {
   padding: 15px 0;
 }
 
+
+.logo{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+
 .logo-img {
   height: 40px;
+}
+.rv-logo {
+  font-size: 1.5rem;
+  color: var(--accent-color);
+  font-weight: 700;
 }
 
 .nav-links {
@@ -560,6 +555,7 @@ section {
   height: 350px;
   background-color: var(--border-color);
   border-radius: 8px;
+  object-fit: cover;
 }
 
 /* სერვისები */
